@@ -14,10 +14,8 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('favourites', function (Blueprint $table) {
             $table->id();
-            $table->text('review');
-            $table->unsignedTinyInteger('rating');
             $table->foreignIdFor(User::class, 'user_id');
             $table->foreignIdFor(Product::class, 'product_id');
             $table->unique(['product_id', 'user_id']);
@@ -32,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('favourites');
     }
 };
