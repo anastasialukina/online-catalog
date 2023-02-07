@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +32,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/product/like/{product}', [FavouriteController::class, 'favouriteAdd'])->name('product.like');
+    Route::delete('/product/unlike/{product}', [FavouriteController::class, 'favouriteRemove'])->name('product.unlike');
 });
 
-require __DIR__.'/auth.php';
+Route::resources([
+    'products' => ProductController::class,
+    'categories' => CategoryController::class,
+]);
+
+Route::resource('reviews', ReviewController::class)
+    ->except([
+        'edit', 'update', 'index'
+    ]);
+
+require __DIR__ . '/auth.php';

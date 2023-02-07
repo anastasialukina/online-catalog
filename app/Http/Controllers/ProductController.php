@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('products', compact('products'));
+        return view('products.index', compact('products'));
     }
 
 
@@ -28,9 +28,11 @@ class ProductController extends Controller
     }
 
 
-    public function show(Product $product)
+    public function show($product)
     {
-        //
+        $favouriteProduct = Product::find($product);
+
+        return view('products.show', ['product' => $favouriteProduct]);
     }
 
 
