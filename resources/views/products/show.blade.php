@@ -64,4 +64,8 @@
             </div>
         @endif
     </div>
+
+    <div class="row">
+        @include('reviews.index', ['reviews' => $reviews])
+    </div>
 </div>

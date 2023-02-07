@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -30,9 +31,10 @@ class ProductController extends Controller
 
     public function show($product)
     {
-        $favouriteProduct = Product::find($product);
+        $Product = Product::find($product);
+        $reviewsForProduct = Review::query()->where('product_id', $product)->get();
 
-        return view('products.show', ['product' => $favouriteProduct]);
+        return view('products.show', ['product' => $Product, 'reviews' => $reviewsForProduct]);
     }
 
 
