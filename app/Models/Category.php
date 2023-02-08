@@ -18,4 +18,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasManyThrough(Review::class, Product::class);
+    }
 }

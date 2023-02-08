@@ -35,6 +35,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/product/like/{product}', [FavouriteController::class, 'favouriteAdd'])->name('product.like');
     Route::delete('/product/unlike/{product}', [FavouriteController::class, 'favouriteRemove'])->name('product.unlike');
+    Route::get('/favourites', [FavouriteController::class, 'index'])->name('favourites.index');
+
+    Route::resource('reviews', ReviewController::class)
+        ->except([
+            'edit', 'update', 'index'
+        ]);
+
 });
 
 Route::resources([
@@ -42,9 +49,5 @@ Route::resources([
     'categories' => CategoryController::class,
 ]);
 
-Route::resource('reviews', ReviewController::class)
-    ->except([
-        'edit', 'update', 'index'
-    ]);
 
 require __DIR__ . '/auth.php';

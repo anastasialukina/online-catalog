@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        //
+        $categories = Category::query()
+            ->withCount('reviews')
+            ->orderByDesc('reviews_count')
+            ->limit(5)
+            ->get();
+
+        return view('categories.popular', ['categories' => $categories]);
     }
 
 
@@ -25,21 +34,12 @@ class CategoryController extends Controller
     }
 
 
-    public function show(Category $category)
+    public function show($category)
     {
-        //
-    }
+        //todo: show with rating??
+        $productsOfCategory = Category::find($category)->products()->get();
 
-
-    public function edit(Category $category)
-    {
-        //
-    }
-
-
-    public function update(Request $request, Category $category)
-    {
-        //
+        return view('products.index', ['products' => $productsOfCategory]);
     }
 
 
