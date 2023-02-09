@@ -49,5 +49,13 @@ Route::resources([
     'categories' => CategoryController::class,
 ]);
 
+Route::get('/categories/{category}/popular', [CategoryController::class, 'sortByReviews'])
+    ->name('products.popular');
+
+Route::get('/categories/{category}/by-date', [CategoryController::class, 'sortByDate'])
+    ->name('products.by-date');
+
+Route::get('/categories/{category}/by-date-reverse', [CategoryController::class, 'sortByDateReverse'])
+    ->name('products.by-date-reverse');
 
 require __DIR__ . '/auth.php';

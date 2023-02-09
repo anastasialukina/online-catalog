@@ -33,13 +33,37 @@ class CategoryController extends Controller
         //
     }
 
+    public function sortByDate($category)
+    {
+        $productsOfCategoryByDate = Category::find($category)->products()->orderByDesc('created_at')->get();
+
+        return view('products.by_category', ['products' => $productsOfCategoryByDate, 'categoryId' => $category]);
+    }
+
+    public function sortByDateReverse($category)
+    {
+        $productsOfCategoryByDate = Category::find($category)->products()->orderBy('created_at')->get();
+
+        return view('products.by_category', ['products' => $productsOfCategoryByDate, 'categoryId' => $category]);
+    }
+
+    public function sortByReviews($category)
+    {
+        $productsOfCategoryByReviews = Category::find($category)
+            ->products()
+            ->withCount('usersThatReviewed')
+            ->orderByDesc('users_that_reviewed_count')
+            ->get();
+
+        return view('products.by_category', ['products' => $productsOfCategoryByReviews, 'categoryId' => $category]);
+    }
+
 
     public function show($category)
     {
-        //todo: show with rating??
         $productsOfCategory = Category::find($category)->products()->get();
 
-        return view('products.index', ['products' => $productsOfCategory]);
+        return view('products.by_category', ['products' => $productsOfCategory, 'categoryId' => $category]);
     }
 
 
