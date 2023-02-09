@@ -1,7 +1,6 @@
-# online-shop
+# online-catalog
 Opensource Online Shop
 
-Online catalog
 
 To make the project work:
 
