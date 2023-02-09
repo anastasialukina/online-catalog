@@ -11,7 +11,7 @@ use stdClass;
 class FavouriteController extends Controller
 {
 
-    public function index(Favourite $favourite)
+    public function index()
     {
         //show user's favourite products
         $currentUser = Auth::user();
@@ -21,7 +21,7 @@ class FavouriteController extends Controller
     }
 
 
-    public function favouriteAdd($product)
+    public function favouriteAdd(int $product)
     {
         $favouriteProduct = Product::find($product);
         $user = auth()->user();

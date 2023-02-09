@@ -5,6 +5,7 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/product/like/{product}', [FavouriteController::class, 'favouriteAdd'])->name('product.like');
+    Route::patch('/product/like/{product}', [FavouriteController::class, 'favouriteAdd'])->name('product.like');
     Route::delete('/product/unlike/{product}', [FavouriteController::class, 'favouriteRemove'])->name('product.unlike');
     Route::get('/favourites', [FavouriteController::class, 'index'])->name('favourites.index');
 
@@ -51,11 +52,12 @@ Route::resources([
 
 Route::get('/categories/{category}/popular', [CategoryController::class, 'sortByReviews'])
     ->name('products.popular');
-
 Route::get('/categories/{category}/by-date', [CategoryController::class, 'sortByDate'])
     ->name('products.by-date');
-
 Route::get('/categories/{category}/by-date-reverse', [CategoryController::class, 'sortByDateReverse'])
     ->name('products.by-date-reverse');
+
+Route::get('/search', [SearchController::class, 'showSearchForm'])->name('search');
+Route::post('/search/results', [SearchController::class, 'searchByWord'])->name('search.results');
 
 require __DIR__ . '/auth.php';

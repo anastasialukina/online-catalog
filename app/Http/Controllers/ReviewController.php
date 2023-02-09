@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Validator;
 class ReviewController extends Controller
 {
 
-    /*public function index()
-    {
-        //
-    }*/
-
-
     public function create()
     {
 
@@ -41,6 +35,8 @@ class ReviewController extends Controller
             'product_id' => $input['product-id'],
             'user_id' => Auth::id()
         ])->first();
+
+        //that means we have already created review
         if ($reviewExists != null) {
             return redirect()->back()->with('flash_msg_fail', 'Your review already exists');
         }
@@ -59,7 +55,6 @@ class ReviewController extends Controller
 
     public function showProductReviews(Product $product)
     {
-
         //show reviews to the exact product
     }
 

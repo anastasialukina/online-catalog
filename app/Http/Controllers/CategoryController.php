@@ -12,6 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        //find 5 the most popular categories via hasManyThrough relations through Product
         $categories = Category::query()
             ->withCount('reviews')
             ->orderByDesc('reviews_count')
@@ -35,6 +36,7 @@ class CategoryController extends Controller
 
     public function sortByDate($category)
     {
+        //sort by Date from the latest to the very first
         $productsOfCategoryByDate = Category::find($category)->products()->orderByDesc('created_at')->get();
 
         return view('products.by_category', ['products' => $productsOfCategoryByDate, 'categoryId' => $category]);
@@ -42,6 +44,7 @@ class CategoryController extends Controller
 
     public function sortByDateReverse($category)
     {
+        //sort by Date from the very first to the latest
         $productsOfCategoryByDate = Category::find($category)->products()->orderBy('created_at')->get();
 
         return view('products.by_category', ['products' => $productsOfCategoryByDate, 'categoryId' => $category]);
@@ -61,6 +64,7 @@ class CategoryController extends Controller
 
     public function show($category)
     {
+        //show all products of the certain category
         $productsOfCategory = Category::find($category)->products()->get();
 
         return view('products.by_category', ['products' => $productsOfCategory, 'categoryId' => $category]);

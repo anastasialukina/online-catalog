@@ -31,6 +31,7 @@ class ProductController extends Controller
 
     public function show($product)
     {
+        //show the certain product with its reviews
         $Product = Product::find($product);
         $reviewsForProduct = Review::query()->where('product_id', $product)->get();
 

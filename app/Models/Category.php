@@ -23,4 +23,10 @@ class Category extends Model
     {
         return $this->hasManyThrough(Review::class, Product::class);
     }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('name', 'like', "%{$term}%")
+            ->orWhere('slug', 'like', "%{$term}%");
+    }
 }

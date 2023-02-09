@@ -391,10 +391,9 @@
     @if (Route::has('login'))
         <div class="hidden top-0 px-6 py-4 sm:block">
             @auth
-                <a href="{{ route('favourites.index') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">My
-                    favourites</a>
-                <a href="{{ url('/dashboard') }}"
-                   class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                <a href="{{ route('favourites.index') }}"
+                   class="text-sm text-gray-700 dark:text-gray-500 underline">My favourites</a>
+
             @else
                 <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
@@ -402,8 +401,10 @@
                     <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
                 @endif
             @endauth
-            <a href="{{ route('categories.index') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Popular
-                categories</a>
+            <a href="{{ route('categories.index') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
+                Popular categories</a>
+            <a href="{{ route('search') }}"
+               class="text-sm text-gray-700 dark:text-gray-500 underline">Search</a>
         </div>
     @endif
 </div>

@@ -7,7 +7,7 @@
             @auth
                 @if($product->usersThatLiked()->find(Auth::user()) != null)
                     <form id="unlike_product"
-                          action="{{route('product.unlike', ['product' => $product->id])}}" method="post">
+                          action="{{route('product.unlike', ['product' => $product->id])}}" method="POST">
                         <button type="submit"
                                 class="btn btn-primary"> {{__('Remove From Favourites')}}
                         </button>
@@ -15,10 +15,14 @@
                         @csrf
                     </form>
                 @else
-                    <button class="btn btn-primary">
-                        <a href="{{route('product.like', ['product' => $product->id])}}">
-                            {{__('Add To Favourites')}}</a>
-                    </button>
+                    <form id="like_product"
+                          action="{{route('product.like', ['product' => $product->id])}}" method="POST">
+                        <button type="submit"
+                                class="btn btn-primary"> {{__('Add To Favourites')}}
+                        </button>
+                        @method('PATCH')
+                        @csrf
+                    </form>
                 @endif
             @endauth
             <a href="{{route('products.show', ['product' => $product->id])}}"
